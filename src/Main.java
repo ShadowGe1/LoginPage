@@ -19,6 +19,7 @@ public class Main {
             int month = (date / 100) % 100;
             int day = date % 100;
             System.out.println("Day: " + day + "\nMonth: " + month + "\nYear: " + year);
+            //awdfawef
         }while(true);
     }
 }
