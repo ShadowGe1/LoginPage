@@ -20,6 +20,7 @@ public class Main {
             int day = date % 100;
             System.out.println("Day: " + day + "\nMonth: " + month + "\nYear: " + year);
             //awdfawef
+            System.out.println("Hello");
         }while(true);
     }
 }
