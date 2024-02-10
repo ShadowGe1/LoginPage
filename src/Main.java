@@ -12,6 +12,8 @@ public class Main {
         birthday = sc.nextLine();
         System.out.println("Enter your gender Male/Female: ");
         String gender = sc.nextLine();
-        Create_Account newAcc = new Create_Account(name, surname, birthday,gender);
+        System.out.println("Enter your email: ");
+        String email = sc.nextLine();
+        Create_Account newAcc = new Create_Account(name, surname, birthday,gender,email);
     }
 }

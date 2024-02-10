@@ -1,28 +1,29 @@
 import java.util.Scanner;
 
 public class Create_Account {
-    private String Name;
-    private String Surname;
-    private String BirthDay;
-    private String Gender;
+    private String name;
+    private String surname;
+    private String birthDay;
+    private String gender;
     private String email;
-    private String Password;
+    private String password;
     Scanner sc = new Scanner(System.in);
 
-    public Create_Account(String Name, String Surname, String BirthDay, String gender){
-        this.Name = Name;
-        this.Surname = Surname;
+    public Create_Account(String Name, String Surname, String BirthDay, String gender, String email){
+        this.name = Name;
+        this.surname = Surname;
         YourBirthday(BirthDay);
         yourGender(gender);
+        yourEmail(email);
     }
 
     private void YourBirthday(String BirthDay){
         while(!isBirthdayOk(BirthDay)){
-                System.out.println("Incorect birthday, enter again in format yyyyMMdd: ");
+                System.out.println("Incorrect birthday, enter again in format yyyyMMdd: ");
                 BirthDay = sc.nextLine();
                 isBirthdayOk(BirthDay);
         }
-        this.BirthDay = BirthDay;
+        this.birthDay = BirthDay;
     }
 
     private void yourGender(String gender){
@@ -30,7 +31,20 @@ public class Create_Account {
             System.out.println("Error!! Enter Male/Female: ");
             gender = sc.nextLine();
         }
-        this.Gender = gender;
+        this.gender = gender;
+    }
+
+    private void yourEmail(String email){
+        while(this.email == null){
+            for(char c : email.toCharArray()){
+                if(c == '@' && email.length() > 10){
+                    return;
+                }
+            }
+            System.out.println("Invalid email!! Enter again: ");
+            email = sc.nextLine();
+        }
+        this.email = email;
     }
 
     private boolean isBirthdayOk(String BirthDay){
