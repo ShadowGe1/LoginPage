@@ -2,23 +2,18 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner dat = new Scanner(System.in);
-        String data;
-        do {
-            System.out.println("Introduceti data nasterii in format yyyyMMdd: ");
-            data = dat.nextLine();
-            int date;
-            try {
-                date = Integer.parseInt(data);
-            } catch (NumberFormatException e) {
-                System.out.println("Incorrect format");
-                return;
-            }
-
-            int year = date / 10000;
-            int month = (date / 100) % 100;
-            int day = date % 100;
-            System.out.println("Day: " + day + "\nMonth: " + month + "\nYear: " + year);
-        }while(true);
+        Scanner sc = new Scanner(System.in);
+        String name, surname, birthday;
+        System.out.println("Enter your name: ");
+        name = sc.nextLine();
+        System.out.println("Enter your surname: ");
+        surname = sc.nextLine();
+        System.out.println("Enter your Birthday in format yyyyMMdd: ");
+        birthday = sc.nextLine();
+        System.out.println("Enter your gender Male/Female: ");
+        String gender = sc.nextLine();
+        System.out.println("Enter your email: ");
+        String email = sc.nextLine();
+        Create_Account newAcc = new Create_Account(name, surname, birthday,gender,email);
     }
 }

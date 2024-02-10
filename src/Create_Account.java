@@ -1,20 +1,50 @@
 import java.util.Scanner;
 
 public class Create_Account {
-    private String Name;
-    private String Surname;
-    private String BirthDay;
-    private String Gender;
+    private String name;
+    private String surname;
+    private String birthDay;
+    private String gender;
     private String email;
-    private String Password;
+    private String password;
+    Scanner sc = new Scanner(System.in);
 
-    public Create_Account(String Name, String Surname){
-        this.Name = Name;
-        this.Surname = Surname;
+    public Create_Account(String Name, String Surname, String BirthDay, String gender, String email){
+        this.name = Name;
+        this.surname = Surname;
+        YourBirthday(BirthDay);
+        yourGender(gender);
+        yourEmail(email);
     }
 
     private void YourBirthday(String BirthDay){
-        isBirthdayOk(BirthDay);
+        while(!isBirthdayOk(BirthDay)){
+                System.out.println("Incorrect birthday, enter again in format yyyyMMdd: ");
+                BirthDay = sc.nextLine();
+                isBirthdayOk(BirthDay);
+        }
+        this.birthDay = BirthDay;
+    }
+
+    private void yourGender(String gender){
+        while(!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))){
+            System.out.println("Error!! Enter Male/Female: ");
+            gender = sc.nextLine();
+        }
+        this.gender = gender;
+    }
+
+    private void yourEmail(String email){
+        while(this.email == null){
+            for(char c : email.toCharArray()){
+                if(c == '@' && email.length() > 10){
+                    return;
+                }
+            }
+            System.out.println("Invalid email!! Enter again: ");
+            email = sc.nextLine();
+        }
+        this.email = email;
     }
 
     private boolean isBirthdayOk(String BirthDay){
@@ -35,7 +65,26 @@ public class Create_Account {
         int day = date % 100;
 
         boolean isYearOk = (year >= 1900) && (year <= 2024);
-        boolean isMonthOk;
-        return true;
+        boolean isMonthOk = (month >= 1) && (month <= 12);
+        boolean isDayOk = day <= isDayOk(month, year);
+        return isYearOk && isMonthOk && isDayOk;
+    }
+    private int isDayOk(int month, int year){
+        switch (month) {
+            case 1, 3, 5, 7, 8, 10, 12 -> {
+                return 31;
+            }
+            case 4, 6, 9, 11 -> {
+                return 30;
+            }
+            case 2 -> {
+                if (year % 4 == 0) {
+                    return 29;
+                } else {
+                    return 28;
+                }
+            }
+        }
+        return -1;
     }
 }
