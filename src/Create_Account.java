@@ -7,17 +7,17 @@ public class Create_Account {
     private String gender;
     private String email;
     private String password;
+    private byte[] salt;
     Scanner sc = new Scanner(System.in);
 
-    public Create_Account(String Name, String Surname, String BirthDay, String gender, String email){
-        this.name = Name;
-        this.surname = Surname;
-        YourBirthday(BirthDay);
-        yourGender(gender);
-        yourEmail(email);
+    public void setName(String name){
+        this.name = name;
     }
 
-    private void YourBirthday(String BirthDay){
+    public void setSurname(String surname){
+        this.surname = surname;
+    }
+    public void setBirthDay(String BirthDay){
         while(!isBirthdayOk(BirthDay)){
                 System.out.println("Incorrect birthday, enter again in format yyyyMMdd: ");
                 BirthDay = sc.nextLine();
@@ -26,7 +26,7 @@ public class Create_Account {
         this.birthDay = BirthDay;
     }
 
-    private void yourGender(String gender){
+    public void setGender(String gender){
         while(!(gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))){
             System.out.println("Error!! Enter Male/Female: ");
             gender = sc.nextLine();
@@ -34,17 +34,23 @@ public class Create_Account {
         this.gender = gender;
     }
 
-    private void yourEmail(String email){
-        while(this.email == null){
-            for(char c : email.toCharArray()){
-                if(c == '@' && email.length() > 10){
-                    return;
-                }
-            }
+    public void setEmail(String email){
+        Email_Verify verify = new Email_Verify();
+        while(!verify.isEmailValis(email)){
             System.out.println("Invalid email!! Enter again: ");
             email = sc.nextLine();
         }
         this.email = email;
+    }
+
+    public void setPassword(String password){
+        while(password.length() < 8){
+            System.out.println("The password must be at least 8 characters: ");
+            password = sc.nextLine();
+        }
+        GetPassword securePass = new GetPassword(password);
+        this.password = securePass.generatedPass;
+        this.salt = securePass.salt;
     }
 
     private boolean isBirthdayOk(String BirthDay){
@@ -86,5 +92,13 @@ public class Create_Account {
             }
         }
         return -1;
+    }
+
+    public String toString(){
+        return "1.Name: " + name +
+                "\n2.Surname: " + surname +
+                "\n3.Birthday: " + birthDay +
+                "\n4.Gender: " + gender +
+                "\n5.Email: " + email + "\n";
     }
 }
