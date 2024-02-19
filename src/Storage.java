@@ -8,7 +8,7 @@ public class Storage {
     }
 
     public void toString(String username){
-        System.out.println(AccountInfo.get(username));
+        System.out.println(AccountInfo.get(username).toString());
     }
 
 }

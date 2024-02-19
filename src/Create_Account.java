@@ -1,3 +1,4 @@
+import java.util.BitSet;
 import java.util.Scanner;
 
 public class Create_Account {
@@ -23,6 +24,7 @@ public class Create_Account {
                 BirthDay = sc.nextLine();
                 isBirthdayOk(BirthDay);
         }
+        BirthDay = BirthDay.substring(0,4) + "." + BirthDay.substring(4,6) + "." + BirthDay.substring(6);
         this.birthDay = BirthDay;
     }
 
@@ -92,6 +94,26 @@ public class Create_Account {
             }
         }
         return -1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String toString(){
