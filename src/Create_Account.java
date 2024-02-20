@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Create_Account {
+public class Create_Account implements Serializable {
+    private static final long serialVersionUID = 2003111820040224L;
     private String name;
     private String surname;
     private String birthDay;
@@ -8,7 +10,7 @@ public class Create_Account {
     private String email;
     private String password;
     private byte[] salt;
-    Scanner sc = new Scanner(System.in);
+    private final transient Scanner sc = new Scanner(System.in);
 
     public void setName(String name){
         this.name = name;
@@ -23,6 +25,7 @@ public class Create_Account {
                 BirthDay = sc.nextLine();
                 isBirthdayOk(BirthDay);
         }
+        BirthDay = BirthDay.substring(0,4) + "." + BirthDay.substring(4,6) + "." + BirthDay.substring(6);
         this.birthDay = BirthDay;
     }
 
@@ -92,6 +95,26 @@ public class Create_Account {
             }
         }
         return -1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String toString(){
