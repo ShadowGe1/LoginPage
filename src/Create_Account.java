@@ -34,7 +34,7 @@ public class Create_Account implements Serializable {
             System.out.println("Error!! Enter Male/Female: ");
             gender = sc.nextLine();
         }
-        this.gender = gender;
+        this.gender = gender.substring(0,1).toUpperCase() + gender.substring(1);
     }
 
     public void setEmail(String email){
@@ -54,7 +54,6 @@ public class Create_Account implements Serializable {
         GetPassword securePass = new GetPassword(password);
         this.password = securePass.generatedPass;
         this.salt = securePass.salt;
-        System.out.println(this.password);
     }
 
     private boolean isBirthdayOk(String BirthDay){
@@ -98,25 +97,25 @@ public class Create_Account implements Serializable {
         return -1;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getBirthDay() {
-        return birthDay;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public String getSurname() {
+//        return surname;
+//    }
+//
+//    public String getBirthDay() {
+//        return birthDay;
+//    }
+//
+//    public String getGender() {
+//        return gender;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
     public String getPassword() {
         return password;
     }

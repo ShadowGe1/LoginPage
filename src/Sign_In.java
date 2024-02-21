@@ -5,6 +5,10 @@ public class Sign_In {
     }
     public boolean correctPassword(String username, String password_user){
         GetPassword userPasswords = new GetPassword(password_user, passwords.userSalt(username));
-        return passwords.userPassword(username).equals(userPasswords.generatedPass);
+         if(passwords.userPassword(username).equals(userPasswords.generatedPass)){
+             passwords.getAccount(username);
+             return true;
+        }
+         return false;
     }
 }

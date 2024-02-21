@@ -8,22 +8,15 @@ public class Storage {
     }
 
     public boolean verifyUsername(String username){
-        if(AccountInfo.containsKey(username)){
-            return false;
-        }
-        return true;
+        return !AccountInfo.containsKey(username);
     }
 
     public void getAccount(String username){
         System.out.println(AccountInfo.get(username).toString());
     }
 
-    public boolean deleteAccount(String username){
-        if(AccountInfo.containsKey(username)) {
+    public void deleteAccount(String username){
             AccountInfo.remove(username);
-            return true;
-        }
-        return false;
     }
 
     public void saveInfo() {
@@ -48,7 +41,7 @@ public class Storage {
             in.close();
             System.out.println("The information was successfully extracted from the file");
         }catch (IOException e){
-            System.out.println("The file cannot be opened or does not exist");
+            System.out.println("The file cannot be opened or there is no information");
         }
     }
 

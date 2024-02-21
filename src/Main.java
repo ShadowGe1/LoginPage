@@ -8,7 +8,6 @@ public class Main {
         String name, surname, gender, birthday, email, password, username;
         int menu;
         storage.loadInfo();
-        storage.toDisplay();
         while(condition.equalsIgnoreCase("no")) {
             System.out.println("Menu:");
             System.out.println("1. Log in");
@@ -18,18 +17,19 @@ public class Main {
             menu = sc.nextInt();
             switch (menu) {
                 case 1 -> {
+                    Sign_In sign_in = new Sign_In(storage);
                     sc.nextLine();
                     System.out.println("Enter username: ");
                     username = sc.nextLine();
                     while (storage.verifyUsername(username)) {
-                        System.out.println("This username doesnt exist, enter another: ");
+                        System.out.println("This username doesn't exist, enter another: ");
                         username = sc.nextLine();
                     }
                     System.out.println("Enter password: ");
                     password = sc.nextLine();
-                    Sign_In ss = new Sign_In(storage);
-                    if(ss.correctPassword(username, password)){
-                        storage.getAccount(username);
+                    while(!sign_in.correctPassword(username, password)){
+                        System.out.println("Incorrect password, enter again: ");
+                        password = sc.nextLine();
                     }
                 }
                 case 2 -> {
@@ -60,24 +60,31 @@ public class Main {
                         username = sc.nextLine();
                     }
                     storage.addAccount(newAcc, username);
-                    storage.toDisplay();
                 }
                 case 3 -> {
+                    Sign_In sign_in = new Sign_In(storage);
                     sc.nextLine();
                     System.out.println("Enter your username for delete de account: ");
                     username = sc.nextLine();
-                    while (!storage.deleteAccount(username)) {
-                        System.out.println("The account doesn't exist, enter username: ");
+                    while (storage.verifyUsername(username)) {
+                        System.out.println("This username doesn't exist, enter another: ");
                         username = sc.nextLine();
                     }
+                    System.out.println("Enter password: ");
+                    password = sc.nextLine();
+                    while(!sign_in.correctPassword(username, password)){
+                        System.out.println("Incorrect password, enter again: ");
+                        password = sc.nextLine();
+                    }
+                    storage.deleteAccount(username);
                     System.out.println("Successful");
                 }
-                case 4 -> condition = "yes";
+                case 4 -> {
+                    condition = "yes";
+                    storage.saveInfo();
+                }
                 default -> System.out.println("The entered option does not exist");
             }
         }
-        storage.saveInfo();
     }
 }
-
-//4102dd52395a8ebf61c0e2bb57acd3cdc5356123d103c5ecc6a728a9429001d1915b2ed21a802e9f81fbf2938a6259242385c83ce7f2ce58dab7385109395939
