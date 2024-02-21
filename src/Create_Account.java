@@ -54,6 +54,7 @@ public class Create_Account implements Serializable {
         GetPassword securePass = new GetPassword(password);
         this.password = securePass.generatedPass;
         this.salt = securePass.salt;
+        System.out.println(this.password);
     }
 
     private boolean isBirthdayOk(String BirthDay){
@@ -116,6 +117,13 @@ public class Create_Account implements Serializable {
     public String getEmail() {
         return email;
     }
+    public String getPassword() {
+        return password;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
 
     public String toString(){
         return "1.Name: " + name +
@@ -125,3 +133,4 @@ public class Create_Account implements Serializable {
                 "\n5.Email: " + email + "\n";
     }
 }
+
