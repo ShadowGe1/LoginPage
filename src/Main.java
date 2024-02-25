@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -8,31 +9,13 @@ public class Main {
         String name, surname, gender, birthday, email, password, username;
         int menu;
         while(condition.equalsIgnoreCase("no")) {
-            System.out.println("Menu:");
-            System.out.println("1. Log in");
-            System.out.println("2. Sing up");
-            System.out.println("3. Delete account");
-            System.out.println("4. Display all accounts");
-            System.out.println("5. Exit");
+            for (String s : Arrays.asList("Menu:", "1. Log in", "2. Sing up", "3. Delete account", "4. Display all accounts", "5. Exit")) {
+                System.out.println(s);
+            }
             menu = sc.nextInt();
             sc.nextLine();
             switch (menu) {
-                case 1 -> {
-                    Sign_In sign_in = new Sign_In(storage);
-                    System.out.println("Enter username: ");
-                    username = sc.nextLine();
-                    while (storage.verifyUsername(username)) {
-                        System.out.println("This username doesn't exist, enter another: ");
-                        username = sc.nextLine();
-                    }
-                    System.out.println("Enter password: ");
-                    password = sc.nextLine();
-                    while(!sign_in.correctPassword(username, password)){
-                        System.out.println("Incorrect password, enter again: ");
-                        password = sc.nextLine();
-                    }
-                    storage.getAccount(username);
-                }
+                case 1 -> storage.getAccount(storage);
                 case 2 -> {
                     Create_Account newAcc = new Create_Account();
                     System.out.println("Enter your name: ");
@@ -62,20 +45,7 @@ public class Main {
                     storage.addAccount(newAcc, username);
                 }
                 case 3 -> {
-                    Sign_In sign_in = new Sign_In(storage);
-                    System.out.println("Enter your username for delete de account: ");
-                    username = sc.nextLine();
-                    while (storage.verifyUsername(username)) {
-                        System.out.println("This username doesn't exist, enter another: ");
-                        username = sc.nextLine();
-                    }
-                    System.out.println("Enter password: ");
-                    password = sc.nextLine();
-                    while(!sign_in.correctPassword(username, password)){
-                        System.out.println("Incorrect password, enter again: ");
-                        password = sc.nextLine();
-                    }
-                    storage.deleteAccount(username);
+                    storage.deleteAccount(storage);
                     System.out.println("Successful");
                 }
                 case 4 -> storage.toDisplay(storage);

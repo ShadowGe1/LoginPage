@@ -4,6 +4,7 @@ import java.util.TreeMap;
 
 public class Storage {
     private TreeMap<String, Create_Account> AccountInfo = new TreeMap<>();
+    private transient String username, password;
     private final transient Scanner sc = new Scanner(System.in);
     Storage() throws ClassNotFoundException {
         loadInfo();
@@ -21,12 +22,64 @@ public class Storage {
         return !AccountInfo.containsKey(username);
     }
 
-    public void getAccount(String username){
-        System.out.println(AccountInfo.get(username).toString());
+    public void getAccount(Storage storage) {
+        if(verifyUser(storage)) {
+            System.out.println(AccountInfo.get(username).toString());
+        }
     }
 
-    public void deleteAccount(String username){
+    public void deleteAccount(Storage storage){
+        if(verifyUser(storage)) {
             AccountInfo.remove(username);
+        }
+    }
+
+    public void toDisplay(Storage storage){
+        if(verifyAdmin(storage)) {
+            System.out.println(AccountInfo.toString());
+        }
+    }
+
+    public String userPassword(String username){
+        return AccountInfo.get(username).getPassword();
+    }
+
+    public byte[] userSalt(String username){
+        return AccountInfo.get(username).getSalt();
+    }
+
+    private boolean verifyAdmin(Storage storage){
+        Sign_In sign_in = new Sign_In(storage);
+        System.out.println("Enter admin username: ");
+        username = sc.nextLine();
+        while(!"Pika2030@#".equals(username)){
+            System.out.println("Incorrect admin username, enter again: ");
+            username = sc.nextLine();
+        }
+        System.out.println("Enter admin password: ");
+        password = sc.nextLine();
+        while(sign_in.correctPassword(username, password)){
+            System.out.println("Admin password is incorrect, enter again: ");
+            password = sc.nextLine();
+        }
+        return true;
+    }
+
+    private boolean verifyUser(Storage storage){
+        Sign_In sign_in = new Sign_In(storage);
+        System.out.println("Enter your username: ");
+        username = sc.nextLine();
+        while (!AccountInfo.containsKey(username)){
+            System.out.println("This username doesn't exist, enter again: ");
+            username = sc.nextLine();
+        }
+        System.out.println("Enter your password: ");
+        password = sc.nextLine();
+        while(sign_in.correctPassword(username, password)){
+            System.out.println("The password is incorrect, enter again: ");
+            password = sc.nextLine();
+        }
+        return true;
     }
 
     public void saveInfo() {
@@ -53,30 +106,5 @@ public class Storage {
         }catch (IOException e){
             System.out.println("The file cannot be opened or there is no information");
         }
-    }
-
-    public void toDisplay(Storage storage){
-        Sign_In sign_in = new Sign_In(storage);
-        System.out.println("Enter admin username: ");
-        String username = sc.nextLine();
-        while(!"Pika2030@#".equals(username)){
-            System.out.println("Incorrect admin username, enter again: ");
-            username =  sc.nextLine();
-        }
-        System.out.println("Enter admin password: ");
-        String password = sc.nextLine();
-        while(!sign_in.correctPassword(username, password)){
-            System.out.println("Admin password is incorrect, enter again: ");
-            password = sc.nextLine();
-        }
-        System.out.println(AccountInfo.toString());
-    }
-
-    public String userPassword(String username){
-        return AccountInfo.get(username).getPassword();
-    }
-
-    public byte[] userSalt(String username){
-        return AccountInfo.get(username).getSalt();
     }
 }

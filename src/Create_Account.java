@@ -21,7 +21,7 @@ public class Create_Account implements Serializable {
     }
 
     public void setName(String name){
-        while(name.length() >= 4){
+        while(name.length() <= 4){
             System.out.println("Name is invalid, enter again: ");
             name = sc.nextLine();
         }
@@ -29,7 +29,7 @@ public class Create_Account implements Serializable {
     }
 
     public void setSurname(String surname){
-        while(surname.length() >= 4){
+        while(surname.length() <= 4){
             System.out.println("Surname is invalid, enter again: ");
             surname = sc.nextLine();
         }
