@@ -7,18 +7,18 @@ public class Main {
         String condition = "no";
         String name, surname, gender, birthday, email, password, username;
         int menu;
-        storage.loadInfo();
         while(condition.equalsIgnoreCase("no")) {
             System.out.println("Menu:");
             System.out.println("1. Log in");
             System.out.println("2. Sing up");
             System.out.println("3. Delete account");
-            System.out.println("4. Exit");
+            System.out.println("4. Display all accounts");
+            System.out.println("5. Exit");
             menu = sc.nextInt();
+            sc.nextLine();
             switch (menu) {
                 case 1 -> {
                     Sign_In sign_in = new Sign_In(storage);
-                    sc.nextLine();
                     System.out.println("Enter username: ");
                     username = sc.nextLine();
                     while (storage.verifyUsername(username)) {
@@ -31,9 +31,9 @@ public class Main {
                         System.out.println("Incorrect password, enter again: ");
                         password = sc.nextLine();
                     }
+                    storage.getAccount(username);
                 }
                 case 2 -> {
-                    sc.nextLine();
                     Create_Account newAcc = new Create_Account();
                     System.out.println("Enter your name: ");
                     name = sc.nextLine();
@@ -63,7 +63,6 @@ public class Main {
                 }
                 case 3 -> {
                     Sign_In sign_in = new Sign_In(storage);
-                    sc.nextLine();
                     System.out.println("Enter your username for delete de account: ");
                     username = sc.nextLine();
                     while (storage.verifyUsername(username)) {
@@ -79,7 +78,8 @@ public class Main {
                     storage.deleteAccount(username);
                     System.out.println("Successful");
                 }
-                case 4 -> {
+                case 4 -> storage.toDisplay(storage);
+                case 5 -> {
                     condition = "yes";
                     storage.saveInfo();
                 }

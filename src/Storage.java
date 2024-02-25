@@ -1,8 +1,18 @@
 import java.io.*;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Storage {
     private TreeMap<String, Create_Account> AccountInfo = new TreeMap<>();
+    private final transient Scanner sc = new Scanner(System.in);
+    Storage() throws ClassNotFoundException {
+        loadInfo();
+        if(!AccountInfo.containsKey("Pika2030@#")){
+            Create_Account admin = new Create_Account("Pika2030@#");
+            AccountInfo.put("Pika2030@#", admin);
+            System.out.println(AccountInfo.containsKey("Pika2030@#"));
+        }
+    }
     public void addAccount(Create_Account Acc, String username){
         AccountInfo.put(username, Acc);
     }
@@ -45,7 +55,20 @@ public class Storage {
         }
     }
 
-    public void toDisplay(){
+    public void toDisplay(Storage storage){
+        Sign_In sign_in = new Sign_In(storage);
+        System.out.println("Enter admin username: ");
+        String username = sc.nextLine();
+        while(!"Pika2030@#".equals(username)){
+            System.out.println("Incorrect admin username, enter again: ");
+            username =  sc.nextLine();
+        }
+        System.out.println("Enter admin password: ");
+        String password = sc.nextLine();
+        while(!sign_in.correctPassword(username, password)){
+            System.out.println("Admin password is incorrect, enter again: ");
+            password = sc.nextLine();
+        }
         System.out.println(AccountInfo.toString());
     }
 
@@ -56,5 +79,4 @@ public class Storage {
     public byte[] userSalt(String username){
         return AccountInfo.get(username).getSalt();
     }
-
 }

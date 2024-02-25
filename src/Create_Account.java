@@ -1,7 +1,9 @@
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Scanner;
 
 public class Create_Account implements Serializable {
+    @Serial
     private static final long serialVersionUID = 2003111820040224L;
     private String name;
     private String surname;
@@ -11,12 +13,26 @@ public class Create_Account implements Serializable {
     private String password;
     private byte[] salt;
     private final transient Scanner sc = new Scanner(System.in);
+    Create_Account(String password){
+        setPassword(password);
+    }
+
+    Create_Account(){
+    }
 
     public void setName(String name){
+        while(name.length() >= 4){
+            System.out.println("Name is invalid, enter again: ");
+            name = sc.nextLine();
+        }
         this.name = name;
     }
 
     public void setSurname(String surname){
+        while(surname.length() >= 4){
+            System.out.println("Surname is invalid, enter again: ");
+            surname = sc.nextLine();
+        }
         this.surname = surname;
     }
     public void setBirthDay(String BirthDay){
@@ -97,25 +113,6 @@ public class Create_Account implements Serializable {
         return -1;
     }
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getSurname() {
-//        return surname;
-//    }
-//
-//    public String getBirthDay() {
-//        return birthDay;
-//    }
-//
-//    public String getGender() {
-//        return gender;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
     public String getPassword() {
         return password;
     }

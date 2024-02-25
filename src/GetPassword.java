@@ -14,7 +14,7 @@ public class GetPassword {
     public GetPassword(String password, byte[] salt){
         getSecurePassword(password, salt);
     }
-    private boolean getSecurePassword(String password, byte[] salt) {
+    private void getSecurePassword(String password, byte[] salt) {
 
         String generatedPassword = null;
         try {
@@ -30,14 +30,12 @@ public class GetPassword {
             e.printStackTrace();
         }
         this.generatedPass = generatedPassword;
-        return true;
     }
 
-    private byte[] getSalt(){
+    private void getSalt(){
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         this.salt = salt;
-        return salt;
     }
 }
