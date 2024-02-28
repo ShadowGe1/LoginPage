@@ -38,17 +38,20 @@ public class Main {
                     newAcc.setPassword(password);
                     System.out.println("Enter your username: ");
                     username = sc.nextLine();
-                    while (!storage.verifyUsername(username)) {
-                        System.out.println("This username is already exist!!!");
+                    while (!storage.addAccount(newAcc, username)) {
+                        System.out.println("This username already exists, enter again");
                         username = sc.nextLine();
                     }
-                    storage.addAccount(newAcc, username);
+                    System.out.println("Account created successfully");
                 }
                 case 3 -> {
                     storage.deleteAccount(storage);
-                    System.out.println("Successful");
+                    System.out.println("Account deleted successfully");
                 }
-                case 4 -> storage.toDisplay(storage);
+                case 4 -> {
+                    System.out.println("All accounts: ");
+                    storage.toDisplay(storage);
+                }
                 case 5 -> {
                     condition = "yes";
                     storage.saveInfo();

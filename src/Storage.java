@@ -14,12 +14,12 @@ public class Storage {
             System.out.println(AccountInfo.containsKey("Pika2030@#"));
         }
     }
-    public void addAccount(Create_Account Acc, String username){
-        AccountInfo.put(username, Acc);
-    }
-
-    public boolean verifyUsername(String username){
-        return !AccountInfo.containsKey(username);
+    public boolean addAccount(Create_Account Acc, String username){
+        if(!AccountInfo.containsKey(username)) {
+            AccountInfo.put(username, Acc);
+            return true;
+        }
+        return false;
     }
 
     public void getAccount(Storage storage) {

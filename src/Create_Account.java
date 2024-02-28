@@ -22,7 +22,7 @@ public class Create_Account implements Serializable {
 
     public void setName(String name){
         while(name.length() <= 4){
-            System.out.println("Name is invalid, enter again: ");
+            System.out.println("The name is invalid, enter again: ");
             name = sc.nextLine();
         }
         this.name = name;
@@ -30,14 +30,14 @@ public class Create_Account implements Serializable {
 
     public void setSurname(String surname){
         while(surname.length() <= 4){
-            System.out.println("Surname is invalid, enter again: ");
+            System.out.println("The surname is invalid, enter again: ");
             surname = sc.nextLine();
         }
         this.surname = surname;
     }
     public void setBirthDay(String BirthDay){
         while(!isBirthdayOk(BirthDay)){
-                System.out.println("Incorrect birthday, enter again in format yyyyMMdd: ");
+                System.out.println("Incorrect birthday, enter again in this format: yyyyMMdd ");
                 BirthDay = sc.nextLine();
                 isBirthdayOk(BirthDay);
         }
